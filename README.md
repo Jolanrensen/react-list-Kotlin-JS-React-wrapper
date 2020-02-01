@@ -4,29 +4,31 @@ This simple repo allows you to use react-list (https://www.npmjs.com/package/rea
 Feel free to turn it into a library, as I'm not sure how (plus, I'm kinda busy).
 
 Example:
+```kotlin
+var list: ReactListRef? = null
 
-    var list: ReactListRef? = null
-    
-    private fun renderRow(index: Int, key: String): ReactElement? = buildElement {
+private val renderRow: (Int, String) -> ReactElement? = { index: Int, key: String -> 
+    buildElement {
       // Build your list item here based on the index given and give it the key
     }
-    
-    override fun RBuilder.render() {
-      styledReactList {
-        css {
-          width = 320.px
-        }
-        attrs {
-          length = yourItems
-          itemRenderer = ::renderRow
-          type = "variable"
-          ref {
-            list = it
-          }
-        }
+}
+
+override fun RBuilder.render() {
+  styledReactList {
+    css {
+      width = 320.px
+    }
+    attrs {
+      length = yourItems
+      itemRenderer = renderRow
+      type = "variable"
+      ref {
+        list = it
       }
     }
-    
-    fun scrollToTop() {
-      list?.scrollTo(0)
-    }
+  }
+}
+
+fun scrollToTop() {
+  list?.scrollTo(0)
+}```
